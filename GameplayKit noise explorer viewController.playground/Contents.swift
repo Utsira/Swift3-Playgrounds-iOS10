@@ -8,11 +8,11 @@
  This is a Swift 3 Playground that runs on either:
  
  + An iPad running iOS 10
- + A Mac running Xcode 8 (runs on either OS X El Capitan or MacOS Sierra)
+ + A Mac running Xcode 8 (runs on either OS X El Capitan or MacOS Sierra as it runs in the iOS Simulator within Xcode Playgrounds)
  
  ### UIKit in Playgrounds
  
- Since Xcode 7.3 (and now, with the Swift Playgrounds App on the iPad in iOS 10), Swift Playgrounds have been able to receive user interactions. This playground handles touch events and gestures with a subclass of UIView.
+ Since Xcode 7.3 (and now, with the Swift Playgrounds App on the iPad in iOS 10), Swift Playgrounds have been able to receive user interactions. This playground handles touch events and gestures with a subclass of UIViewController.
  
  ### Noise Generation with GameplayKit in iOS 10
  
