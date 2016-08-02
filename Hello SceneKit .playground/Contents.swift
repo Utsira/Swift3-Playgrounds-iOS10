@@ -2,7 +2,6 @@
 import SceneKit
 import SpriteKit
 import PlaygroundSupport
-let pi2 = Float(M_PI_2)
 
 let scene = SCNScene()
 let hello = SCNText(string: "Hello\nworld!", extrusionDepth: 9)
@@ -10,27 +9,38 @@ hello.chamferRadius = 0.5
 hello.flatness = 0.05
 hello.font = UIFont(name: "Superclarendon-Black", size: 12)
 let helloNode = SCNNode(geometry: hello)
+
+// move the pivot point of the text geometry to its centre
 var min = SCNVector3Zero
 var max = SCNVector3Zero
 helloNode.__getBoundingBoxMin(&min, max: &max)
 print(min,max)
- helloNode.position = SCNVector3((max.x - min.x) * -0.5, (max.y - min.y) * -0.5, 0) 
+helloNode.pivot = SCNMatrix4MakeTranslation((max.x - min.x) * 0.5, (max.y - min.y) * 0.5, 0)
+ 
 //helloNode.scale = SCNVector3(0.2, 0.2, 0.2)
 scene.rootNode.addChildNode(helloNode)
-
 
 let cube = SCNNode(geometry: SCNBox(width: 30, height: 2, length: 8, chamferRadius: 0.5))
 cube.position = SCNVector3(-4, 3, 0)
 scene.rootNode.addChildNode(cube)
-let mat = SCNMaterial()
 
- mat.lightingModelName = SCNLightingModelPhysicallyBased
-mat.roughness.contents = UIColor.lightGray()
-mat.metalness.contents = SKTexture(noiseWithSmoothness: 0.8, size: CGSize(width: 500, height: 500), grayscale: true).cgImage()  //UIColor.darkGray()
+// set up two Physics-based rendering materials
+let dullMat = SCNMaterial()
+dullMat.lightingModelName = SCNLightingModelPhysicallyBased
+dullMat.roughness.contents = UIColor.white()
+dullMat.metalness.contents = UIColor.black()
+dullMat.diffuse.contents = UIColor.lightGray()
+
+let metalMat = SCNMaterial()
+ metalMat.lightingModelName = SCNLightingModelPhysicallyBased
+metalMat.roughness.contents = UIColor.lightGray()
+    //add some noise to the metal texture
+metalMat.metalness.contents = SKTexture(noiseWithSmoothness: 0.8, size: CGSize(width: 500, height: 500), grayscale: true).cgImage()  //UIColor.darkGray()
     
- mat.diffuse.contents = #colorLiteral(red: 1.0, green: 0.498039215803146, blue: 0.756862759590149, alpha: 1.0)  
-cube.geometry?.materials = [mat] 
-hello.materials = [mat]
+ metalMat.diffuse.contents = #colorLiteral(red: 1.0, green: 0.498039215803146, blue: 0.756862759590149, alpha: 1.0)  
+cube.geometry?.materials = [dullMat]
+    // scntext has up to 5 materials: front, back, sides, front champfer, back champfer
+hello.materials = [metalMat, dullMat, dullMat, metalMat, dullMat]
 
  let light = SCNLight()
 light.type = SCNLightTypeOmni
