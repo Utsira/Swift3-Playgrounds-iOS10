@@ -17,7 +17,7 @@ func += ( left: inout CGPoint, right: CGPoint) {
 let degree = CGFloat(M_PI_2) / 90
 
 class GameScene: SKScene {
-    var selectedNode: SKLabelNode?
+    var selectedNode: SKNode?
     var shakeAction: SKAction?
     
     override init(size: CGSize) {
@@ -25,11 +25,12 @@ class GameScene: SKScene {
         let text = SKLabelNode(text: "Drag me 🤖")
         text.fontColor = #colorLiteral(red: 0.854901969432831, green: 0.250980406999588, blue: 0.47843137383461, alpha: 1.0)
         text.position = CGPoint(x: size.width / 2, y: size.height/2)
-        
+        let sprite = SKSpriteNode(color: #colorLiteral(red: 0.854901969432831, green: 0.250980406999588, blue: 0.47843137383461, alpha: 1.0), size: CGSize(width: 30, height: 30))
+        sprite.position = CGPoint(x: 100, y: 100)
         super.init(size: size)
         makeShakeAction()
-        self.addChild(text)
-        
+        addChild(text)
+        addChild(sprite)
     }
     
     func makeShakeAction(){
@@ -62,7 +63,7 @@ class GameScene: SKScene {
         let touch = touches.first
         guard let positionInScene = touch?.location(in: self) else {return}
         
-        if let touchedNode = self.nodes(at: positionInScene).first as? SKLabelNode {
+        if let touchedNode = self.nodes(at: positionInScene).first {
             selectedNode = touchedNode
             selectedNode?.run(shakeAction!, withKey: "shake")
         }
