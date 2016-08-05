@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Version</key>
+	<string>1.0</string>
+	<key>Name</key>
+	<string>Edge to edge liveview</string>
+	<key>ContentIdentifier</key>
+	<string>com.SaltPig.playgroundbook.template.EdgeToEdge</string>
+	<key>ContentVersion</key>
+	<string>1</string>
+	<key>LiveViewMode</key>
+	<string>HiddenByDefault</string>
+	<key>LiveViewEdgeToEdge</key>
+	<true/>
+</dict>
+</plist>
